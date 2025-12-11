@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 24px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+            text-align: center;
+        }
+        form {
+            margin-bottom: 16px;
+            display: flex;
+            gap: 8px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #1976d2;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        .card {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 6px;
+            background-color: #e3f2fd;
+        }
+        .error {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 6px;
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Thời tiết hiện tại</h1>
+
+
+    <form method="get" action="/weather">
+        <input type="text" name="city" placeholder="Nhập tên thành phố (vd: DaNang)" 
+               th:value="${param.city}" />
+        <button type="submit">Xem</button>
+    </form>
+
+
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+
+    <div th:if="${weather}" class="card">
+        <p><span class="label">Thành phố:</span>
+            <span th:text="${weather.city}"></span>
+        </p>
+        <p><span class="label">Mô tả:</span>
+            <span th:text="${weather.description}"></span>
+        </p>
+        <p><span class="label">Nhiệt độ:</span>
+            <span th:text="${weather.temperature}"></span> °C
+        </p>
+        <p><span class="label">Độ ẩm:</span>
+            <span th:text="${weather.humidity}"></span> %
+        </p>
+    </div>
+</div>
+</body>
+</html>
